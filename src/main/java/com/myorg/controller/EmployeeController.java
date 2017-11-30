@@ -8,11 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.myorg.entity.Department;
 import com.myorg.entity.Employee;
+import com.myorg.entity.Pager;
 import com.myorg.service.EmployeeService;
 
 @Controller
@@ -25,6 +29,11 @@ public class EmployeeController {
 	@RequestMapping("/input")
 	public String input() {
 		return "employee/input";
+	}
+	
+	@RequestMapping("/loginPage")
+	public String loginPage(){
+		return "login";
 	}
 
 	@RequestMapping("/login")
@@ -44,6 +53,15 @@ public class EmployeeController {
 			map.put("msg", "登录成功");
 			return map;
 		}
+	}
+	
+	@RequestMapping("/list")
+	public String findAll(
+			ModelMap map,
+			@RequestParam(value = "currPage", required = false, defaultValue = "1") Integer currPage) {
+		Pager<Employee> pager = employeeService.findByPage(currPage);
+		map.put("pager", pager);
+		return "employee/list";
 	}
 
 }

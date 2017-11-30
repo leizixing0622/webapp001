@@ -1,5 +1,6 @@
 package com.myorg.service;
 
+import com.myorg.entity.Department;
 import com.myorg.entity.Pager;
 
 import java.util.List;
@@ -52,4 +53,7 @@ public interface BaseService<T> {
 
     public void executeByHql(String hql);
 
+    public Pager<T> findByPage(Integer currPage);
+
+    
 }

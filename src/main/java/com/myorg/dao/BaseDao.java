@@ -51,5 +51,8 @@ public interface BaseDao<T> {
     public void executeByHql(String hql, Object arg);
 
     public void executeByHql(String hql);
+    
+    public int findCount();
 
+    public List<T> findByPage(int pageOffset, int pageSize);
 }

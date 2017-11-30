@@ -15,7 +15,7 @@ public class EmployeeServiceImpl extends BaseServiceImpl<Employee> implements Em
 	@Resource
 	private EmployeeDao employeeDao; 
 	
-	@Override
+	@Resource
 	public void setDao(BaseDao<Employee> dao) {
 		super.setDao(employeeDao);
 	}

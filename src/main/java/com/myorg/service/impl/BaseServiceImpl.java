@@ -1,17 +1,18 @@
 package com.myorg.service.impl;
 
 import com.myorg.dao.BaseDao;
+import com.myorg.entity.Department;
 import com.myorg.entity.Pager;
 import com.myorg.service.BaseService;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
     private BaseDao<T> dao;
 
-    @Resource
     public void setDao(BaseDao<T> dao) {
         this.dao = dao;
     }
@@ -107,4 +108,22 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     public void executeByHql(String hql) {
         dao.executeByHql(hql);
     }
+
+	@Override
+	public Pager<T> findByPage(Integer currPage) {
+		Pager<T> pager = new Pager<T>();
+		pager.setCurrPageNumber(currPage);
+		int pageSize = 10;
+		pager.setPageSize(pageSize);
+		int totalCount = dao.findCount();
+		pager.setTotalRecord(totalCount);
+		double tc = totalCount;
+		Double num = Math.ceil(tc / pageSize);
+		pager.setTotalPageNumber(num.intValue());
+		int pageOffset = (currPage - 1) * pageSize;
+		List<T> list = dao.findByPage(pageOffset, pageSize);
+		pager.setDatas(list);
+		return pager;
+	}
+    
 }

@@ -6,9 +6,4 @@ import com.myorg.entity.Department;
 
 @Repository("departmentDao")
 public class DepartmentDao extends BaseDaoImpl<Department> {
-
-	public int findCount() {
-		String hql = "select count(*) from Department";
-		return 0;
-	}
 }

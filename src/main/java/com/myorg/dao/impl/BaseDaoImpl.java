@@ -4,6 +4,7 @@ import com.myorg.dao.BaseDao;
 import com.myorg.entity.Pager;
 import com.myorg.entity.SystemContext;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -68,8 +69,8 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     public Pager<T> getPage(String hql, Object[] args) {
         int pageSize = SystemContext.getPageSize();
         int pageOffset = SystemContext.getPageOffset();
-        if (pageSize == 0) pageSize = 10;
-        if (pageOffset == 0) pageOffset = 0;
+        if (pageSize <= 0) pageSize = 10;
+        if (pageOffset <= 0) pageOffset = 0;
         Query query = getSession().createQuery(hql);
         for (int i = 0; i < args.length; i++) {
             query.setParameter(i, args[i]);
@@ -188,4 +189,21 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     public void executeByHql(String hql) {
         this.executeByHql(hql, null);
     }
+
+	@Override
+	public List<T> findByPage(int pageOffset, int pageSize) {
+		if (pageOffset <= 0) pageOffset = 0;
+		if (pageSize <= 0) pageSize = 10;
+		Criteria criteria = getSession().createCriteria(cls);
+		criteria.setFirstResult(pageOffset);
+		criteria.setMaxResults(pageSize);
+		return criteria.list();
+	}
+
+	@Override
+	public int findCount() {
+		Criteria criteria = getSession().createCriteria(cls);
+		return criteria.list().size();
+	}
+	
 }
