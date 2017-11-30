@@ -48,7 +48,7 @@
 			员工管理 <a href="${pageContext.request.contextPath}/department/input"
 				class="btn btn-default" type="submit" style="float: right;">添加部门</a>
 		</caption>
-		<thead>
+		<thead> 
 			<tr>
 				<th>部门名称</th>
 				<th>编辑</th>
