@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,29 +47,39 @@
 	<table class="table table-bordered table-hover">
 		<caption>
 			员工管理 <a href="${pageContext.request.contextPath}/department/input"
-				class="btn btn-default" type="submit" style="float: right;">添加部门</a>
+				class="btn btn-default" type="submit" style="float: right;">添加员工</a>
 		</caption>
-		<thead> 
+		<thead>
 			<tr>
-				<th>部门名称</th>
-				<th>编辑</th>
+				<th>编号</th>
+				<th>员工姓名</th>
+				<th>性别</th>
+				<th>出生日期</th>
+				<th>入职时间</th>
+				<th>所属部门</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:if test="${requestScope.pager.datas.size() == 0}">
 				<tr>
-					<td colspan="2" style="text-align: center;">暂无数据</td>
+					<td colspan="7" style="text-align: center;">暂无数据</td>
 				</tr>
 			</c:if>
 			<c:forEach items="${requestScope.pager.datas}" var="i">
 				<tr>
-					<td>${i.dname}</td>
+					<td>${i.eno}</td>
+					<td>${i.ename}</td>
+					<td>${i.sex}</td>
+					<td><fmt:formatDate value="${i.birthday}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+					<td><fmt:formatDate value="${i.joinDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+					<td>${i.department.dname}</td>
 					<td>
 						<a
-						href="${pageContext.request.contextPath}/department/updatePage?did=${i.did}"
+						href="${pageContext.request.contextPath}/department/updatePage?did=${i.eid}"
 						type="button" class="btn btn-default btn-sm">编辑</a> 
 						<a
-						onclick="showModal(${i.did})"
+						onclick="showModal(${i.eid})"
 						type="button" class="btn btn-default btn-sm">删除</a>
 					</td>
 				</tr>

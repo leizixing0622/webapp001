@@ -51,7 +51,7 @@
 		<thead>
 			<tr>
 				<th>部门名称</th>
-				<th>编辑</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>

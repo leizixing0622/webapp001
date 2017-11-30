@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -53,6 +54,7 @@ public class Employee {
 		this.sex = sex;
 	}
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
 	public Date getBirthday() {
 		return birthday;
 	}
