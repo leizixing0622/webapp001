@@ -46,8 +46,7 @@
 
 	<table class="table table-bordered table-hover">
 		<caption>
-			员工管理 <a href="${pageContext.request.contextPath}/department/input"
-				class="btn btn-default" type="submit" style="float: right;">添加员工</a>
+			员工管理 <a href="${pageContext.request.contextPath}/employee/input" class="btn btn-default" style="float: right;">添加员工</a>
 		</caption>
 		<thead>
 			<tr>
